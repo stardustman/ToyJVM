@@ -23,6 +23,7 @@ uint16_t read2Bytes(Frame* frame){
     ^
     */
     uint16_t val=be16toh(*(uint16_t*)&frame->code->code[frame->pc+1]);
+    // pc自动增加
     frame->pc += 2;
     return val;
 }
@@ -38,6 +39,7 @@ uint64_t read8Bytes(Frame* frame){
 }
 void* OPCODE_ICONST_M1(Frame* frame){
     uint64_t val = -1;
+    //把valpush到操作数栈
     pushStack(&val,frame->operandStack);
 	return NULL;
 }
@@ -97,6 +99,7 @@ void* OPCODE_SIPUSH(Frame* frame){
     pushStack(&val,frame->operandStack);
 	return NULL;
 }
+//load constant from run time constant 
 void* OPCODE_LDC(Frame* frame){
     uint8_t index = read1Byte(frame);
     cp_info* aConstant = &frame->classRef->constant_pool[index-1];
@@ -139,11 +142,14 @@ void* OPCODE_LDC_W(Frame* frame){
     }
 	return NULL;
 }
+
+// load
 void* OPCODE_NLOAD(Frame* frame){ // N represents I,L or D
     uint8_t index = read1Byte(frame);
     pushStack(&frame->localVariables[index], frame->operandStack);
 	return NULL;
 }
+<N>load0
 void* OPCODE_NLOAD_0(Frame* frame){
     pushStack(&frame->localVariables[0], frame->operandStack);
 	return NULL;
@@ -166,21 +172,26 @@ void* OPCODE_NSTORE(Frame* frame){
     frame->localVariables[index] = val;
 	return NULL;
 }
+
+//store0
 void* OPCODE_NSTORE_0(Frame* frame){
     uint64_t val = *(uint64_t*)popStack(frame->operandStack);
     frame->localVariables[0] = val;
 	return NULL;
 }
+//store1
 void* OPCODE_NSTORE_1(Frame* frame){
     uint64_t val = *(uint64_t*)popStack(frame->operandStack);
     frame->localVariables[1] = val;
 	return NULL;
 }
+//store2
 void* OPCODE_NSTORE_2(Frame* frame){
     uint64_t val = *(uint64_t*)popStack(frame->operandStack);
     frame->localVariables[2] = val;
 	return NULL;
 }
+//store3
 void* OPCODE_NSTORE_3(Frame* frame){
     uint64_t val = *(uint64_t*)popStack(frame->operandStack);
     frame->localVariables[3] = val;
@@ -192,6 +203,7 @@ void* OPCODE_POP(Frame* frame){
     DEBUG_PRINT(("Discarded Return Value is %d\n",discardedRetVal));
 	return NULL;
 }
+//dup
 void* OPCODE_DUP(Frame* frame){
     uint64_t val = *(uint64_t*)popStack(frame->operandStack);
     pushStack(&val, frame->operandStack);

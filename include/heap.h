@@ -3,9 +3,11 @@
 #include <inttypes.h>
 #include <stdlib.h>
 
+// 创建的对象都在head上
 typedef struct HeapObject{
+    // sizeof(void *) = 8
     void* addr;
-    size_t size;
+    size_t size;  //对象的大小??  unsigned int
     uint8_t isUsed;
 }HeapObject;
 

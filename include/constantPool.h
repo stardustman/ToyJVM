@@ -102,6 +102,7 @@ typedef struct CONSTANT_Array_info{  // custom
     uint8_t* ref;
 }CONSTANT_Array_info;
 
+// union的使用
 union CONSTANT_INFO {
     CONSTANT_Class_info class_info;
     CONSTANT_Ref_info   ref_info;
@@ -116,6 +117,7 @@ union CONSTANT_INFO {
 }; // unified for runtime constant pool
 
 typedef struct cp_info {
+    //标记哪一种constant pool
     uint8_t tag;
     union CONSTANT_INFO info;
 }cp_info;

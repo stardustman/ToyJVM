@@ -201,6 +201,7 @@ method_info* getMethodByName(ClassFile* cf, const char* name, const char* desc){
 
 void initClass(ClassFile* cf, Frame* frame){
     if (!cf->initalized){
+        //得到类的初始化方法
         method_info* method = getMethodByName(cf, "<clinit>","()V");
         //DEBUG_PRINT( ("Method's Class Name: %.*s\n",name_utf8.length,name_utf8.bytes));
         Code_attribute code;

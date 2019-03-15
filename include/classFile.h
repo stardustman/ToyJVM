@@ -28,6 +28,7 @@ typedef struct ClassFile{
     uint8_t initalized;
 }ClassFile;
 
+//class file as byte stream
 ClassFile classFromFile(const char* filename);
 
 ClassFile* getClassFromUtf8(CONSTANT_Utf8_info className_utf8, Machine* machine);

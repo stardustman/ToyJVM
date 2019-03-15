@@ -6,7 +6,9 @@
 
 typedef struct Machine{
     struct ClassFile* classFiles;
+    //记录加载的类的个数
     uint64_t numClasses;
+    //N个栈
     Stack* JVMSTACK;
     Heap* heap;
 }Machine;

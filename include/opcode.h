@@ -3,7 +3,7 @@
 #include <inttypes.h>
 #include "frame.h"
 
-typedef void* OPCODE(struct Frame*);
+typedef void* OPCODE(struct Frame*); //void* 定义为OPCODE(struct Frame*)
 
 OPCODE** initOpcodes();
 

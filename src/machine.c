@@ -4,12 +4,13 @@
 #include "stack.h"
 #include "debug.h"
 #include "classFile.h"
-
+// 当前虚拟机 当前的栈帧
 void* executeCode(Machine* JVM, OPCODE** opcodes){ // anything can be returned from an execution
 
     Frame* frame;
     void* retCode;
     while (1){
+        //Frame里包含了栈的指针
         frame = (Frame*)peekStack(JVM->JVMSTACK);
         DEBUG_PRINT(("---------------\n"));
         DEBUG_PRINT(("peeked stack is %p\n",frame));
@@ -24,6 +25,7 @@ void* executeCode(Machine* JVM, OPCODE** opcodes){ // anything can be returned f
         for (; frame->pc < frame->code->code_length; frame->pc++){
             retCode = NULL;
             DEBUG_PRINT(("pc: %d -> 0x%1x, opStackTop: %d\n",frame->pc , frame->code->code[frame->pc],frame->operandStack->top));
+            //   opcodes-->OPCODE** initOpcodes();
             retCode = opcodes[frame->code->code[frame->pc]](frame);
             if (retCode != NULL){
                 // the opcode returned something to push

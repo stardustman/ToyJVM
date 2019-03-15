@@ -4,7 +4,9 @@
 #include "frame.h"
 
 typedef enum StackType{
+    //操作数栈值设置为 8
     TYPE_OPERANDSTACK = sizeof(uint64_t),
+    // 设置为Frame的大小
     TYPE_JVMSTACK = sizeof(struct Frame)
 }StackType;
 

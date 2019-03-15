@@ -1,7 +1,9 @@
 #include "heap.h"
 
+// size_t = unsigned int
 Heap initHeap(size_t size){
     Heap heap;
+    //分配size个HeapObject,内存清零 ,heap是HeapObject类型的指针
     heap.heap = calloc(size,sizeof(HeapObject));
     heap.size = size;
     heap.top = 1; // 0 is for null object refs. 
@@ -13,7 +15,7 @@ void* hGet(uint64_t addr, Heap* heap){
 }
 
 uint64_t hAlloc(size_t size, Heap* heap){
-    for (size_t mem=0; mem<heap->top; mem++){
+    for (size_t mem=0; mem < heap->top; mem++){
         // this gets slower and sloooower as the number of object in heap increases.
         if (!heap->heap[mem].isUsed){
             heap->heap[mem].isUsed=1;
